@@ -11,4 +11,8 @@ package nt.application.crewtask.model;
  */
 public class User {
     
+    private int id;
+    private String userName;
+    private char[] password;
+    
 }
