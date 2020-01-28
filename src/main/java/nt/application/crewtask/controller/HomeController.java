@@ -5,7 +5,10 @@
  */
 package nt.application.crewtask.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import nt.application.crewtask.model.Site;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -18,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
     
     @RequestMapping(value="/loadHome", method=RequestMethod.GET)
-    public String homePage() {
+    public String homePage(HttpServletRequest requet, Model model) {        
         return "index";
     };
     
