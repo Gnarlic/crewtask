@@ -9,6 +9,6 @@ package nt.application.crewtask.service;
  *
  * @author Elnic
  */
-public class CrewServicImpl {
+public class CrewServiceImpl implements CrewService{
     
 }

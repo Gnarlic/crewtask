@@ -16,10 +16,12 @@ public class Crew {
     
     private int id;
     private String crewName;
-    private String[] crewLeads;
+    private String crewLead;
     private String[] crewMembers;
     private boolean isAvailable;
 
+    
+    
     public int getId() {
         return id;
     }
@@ -36,12 +38,12 @@ public class Crew {
         this.crewName = crewName;
     }
 
-    public String[] getCrewLeads() {
-        return crewLeads;
+    public String getCrewLead() {
+        return crewLead;
     }
 
-    public void setCrewLeads(String[] crewLeads) {
-        this.crewLeads = crewLeads;
+    public void setCrewLead(String crewLead) {
+        this.crewLead = crewLead;
     }
 
     public String[] getCrewMembers() {
@@ -63,11 +65,11 @@ public class Crew {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 79 * hash + this.id;
-        hash = 79 * hash + Objects.hashCode(this.crewName);
-        hash = 79 * hash + Arrays.deepHashCode(this.crewLeads);
-        hash = 79 * hash + Arrays.deepHashCode(this.crewMembers);
-        hash = 79 * hash + (this.isAvailable ? 1 : 0);
+        hash = 89 * hash + this.id;
+        hash = 89 * hash + Objects.hashCode(this.crewName);
+        hash = 89 * hash + Objects.hashCode(this.crewLead);
+        hash = 89 * hash + Arrays.deepHashCode(this.crewMembers);
+        hash = 89 * hash + (this.isAvailable ? 1 : 0);
         return hash;
     }
 
@@ -92,7 +94,7 @@ public class Crew {
         if (!Objects.equals(this.crewName, other.crewName)) {
             return false;
         }
-        if (!Arrays.deepEquals(this.crewLeads, other.crewLeads)) {
+        if (!Objects.equals(this.crewLead, other.crewLead)) {
             return false;
         }
         if (!Arrays.deepEquals(this.crewMembers, other.crewMembers)) {
@@ -100,7 +102,7 @@ public class Crew {
         }
         return true;
     }
-    
+
 
 
     
