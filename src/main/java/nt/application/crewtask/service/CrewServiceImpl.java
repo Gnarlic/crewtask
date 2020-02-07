@@ -20,27 +20,36 @@ public class CrewServiceImpl implements CrewService{
     
     @Override
     public Crew addCrew(Crew crew) {
-        return null;
+        String SPLIT = ",";
+        String[] crewMembers;
+        String inputString = crew.getCrewMembers()[0];
+        crewMembers = inputString.split(SPLIT);
+        for (int i = 0; i < crewMembers.length; i++) {
+            crewMembers[i] = crewMembers[i] + "y'all";
+            System.out.println(crewMembers);
+        }
+        crew.setCrewMembers(crewMembers);
+        return crew;
     }
 
     @Override
     public void deleteCrew(Crew crew) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
     public Crew editCrew(Crew crew) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return crew;
     }
 
     @Override
-    public Crew selectCrew(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Crew selectCrew(int id) throws Exception {
+        return cDao.selectCrew(id);
     }
 
     @Override
-    public ArrayList<Crew> loadAllCrews() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Crew> loadAllCrews() throws Exception {
+        return cDao.getAllCrews();
     }
     
 }

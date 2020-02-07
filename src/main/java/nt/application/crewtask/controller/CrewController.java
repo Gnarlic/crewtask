@@ -28,7 +28,6 @@ public class CrewController {
     @RequestMapping(value="/addCrew", method=RequestMethod.GET)
     public String addCrew(HttpServletRequest rq, Model model) {
         Crew crew = new Crew();
-        crew.setCrewName("Test Crew");
         model.addAttribute("crew", crew);
         return "crew/newCrew";
     }
@@ -40,9 +39,11 @@ public class CrewController {
             model.addAttribute("crew", newCrew);
             return "crew/newCrew";
         } else {
-            
+            cServ.addCrew(crew);
         }
-        return "crewsuccess";
+        crew.setIsAvailable(true);
+        model.addAttribute("crew", crew);
+        return "crew/crewsuccess";
     }
     
 }

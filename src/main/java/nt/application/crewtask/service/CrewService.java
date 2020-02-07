@@ -20,8 +20,8 @@ public interface CrewService {
     
     public Crew editCrew(Crew crew);
     
-    public Crew selectCrew(int id);
+    public Crew selectCrew(int id) throws Exception;
     
-    public ArrayList<Crew> loadAllCrews();
+    public ArrayList<Crew> loadAllCrews() throws Exception;
     
 }

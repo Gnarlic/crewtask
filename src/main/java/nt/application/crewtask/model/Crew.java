@@ -20,7 +20,13 @@ public class Crew {
     private String[] crewMembers;
     private boolean isAvailable;
 
+    public Crew(int id) {
+        this.id = id;
+    }
     
+    public Crew() {
+        
+    }
     
     public int getId() {
         return id;

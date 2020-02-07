@@ -20,8 +20,8 @@ public interface CrewDao {
     
     public void deleteCrew(Crew crew);
     
-    public Crew selectCrew(int id);
+    public Crew selectCrew(int id) throws Exception;
     
-    public ArrayList<Crew> getAllCrews();
+    public ArrayList<Crew> getAllCrews() throws Exception;
     
 }
