@@ -16,8 +16,9 @@
             <hr/>
             <div class="">
                 <a href="${pageContext.request.contextPath}/crew/addCrew">add crew</a>
-                <a href="${pageContext.request.contextPath}/addSite">add site</a>
-                <a href="${pageContext.request.contextPath}/addTask">add task</a>
+                <a href="${pageContext.request.contextPath}/crew/displayAllCrews"> view all crews</a>
+                <a href="${pageContext.request.contextPath}/addSite"> add site</a>
+                <a href="${pageContext.request.contextPath}/addTask"> add task</a>
             </div>
             
         </div>

@@ -22,14 +22,13 @@ import nt.application.crewtask.model.Crew;
  *
  * @author Elnic
  */
-public class CrewDaoDbImpl implements CrewDao{
+public class CrewDaoDbImpl implements CrewDao {
 
     private final Map<Integer, Crew> crews = new HashMap<>();
-    
+    private static int lastIdNumber = 1;
     public static final String CREW_LIST = "C:/Repos/CrewTask/crewList.txt";
     public static final String DELIMITER = "::";
-    
-    
+
     //Temporary file system for saving and loading crews - will implement MySQL db later
     private void loadCrews() throws Exception {
         Scanner sc;
@@ -40,62 +39,76 @@ public class CrewDaoDbImpl implements CrewDao{
         }
         String currentLine;
         String[] currentTokens;
-        
+
         while (sc.hasNextLine()) {
-            
-            currentLine = sc.nextLine();
-            currentTokens = currentLine.split(DELIMITER);
-            String[] crewMembers;
-            
-            Crew currentCrew = new Crew(Integer.parseInt(currentTokens[0]));
-            currentCrew.setCrewName(currentTokens[1]);
-            currentCrew.setCrewLead(currentTokens[2]);
-            currentCrew.setIsAvailable(Boolean.parseBoolean(currentTokens[3]));
-            while (sc.hasNextLine()) {
+            try {
                 currentLine = sc.nextLine();
                 currentTokens = currentLine.split(DELIMITER);
-                crewMembers = new String[currentTokens.length];
-                for (int i = 0; i < currentTokens.length; i++) {
-                    crewMembers[i] = currentTokens[i];
+                String[] crewMembers;
+                Crew currentCrew = new Crew(Integer.parseInt(currentTokens[0]));
+                currentCrew.setCrewName(currentTokens[1]);
+                currentCrew.setCrewLead(currentTokens[2]);
+                currentCrew.setIsAvailable(Boolean.parseBoolean(currentTokens[3]));
+                while (sc.hasNextLine()) {
+                    currentLine = sc.nextLine();
+                    currentTokens = currentLine.split(DELIMITER);
+                    crewMembers = new String[currentTokens.length];
+                    for (int i = 0; i < currentTokens.length; i++) {
+                        crewMembers[i] = currentTokens[i];
+                    }
+                    currentCrew.setCrewMembers(crewMembers);
                 }
-                currentCrew.setCrewMembers(crewMembers);
+                crews.put(currentCrew.getId(), currentCrew);
+                lastIdNumber = currentCrew.getId();
+            } catch (NumberFormatException e) {
+                Crew firstCrew = new Crew(1);
+                firstCrew.setCrewName("First Crew");
+                firstCrew.setCrewLead("Crew Lead");
+                String[] tempCrewMems = new String[]{"Crew Member"};
+                firstCrew.setCrewMembers(tempCrewMems);
+                firstCrew.setIsAvailable(true);
+                crews.put(firstCrew.getId(), firstCrew);
+                lastIdNumber = firstCrew.getId();
             }
-            crews.put(currentCrew.getId(), currentCrew);
+            
         }
         sc.close();
     }
-    
+
     private void writeCrews() throws Exception {
+        loadCrews();
         PrintWriter out;
-        
+
         try {
             out = new PrintWriter(new FileWriter(CREW_LIST));
         } catch (IOException e) {
             throw new Exception("test", e);
         }
-        
+
         List<Crew> crews = this.getAllCrews();
         for (Crew crew : crews) {
             out.println(crew.getId() + DELIMITER
-            + crew.getCrewName() + DELIMITER
-            + crew.getCrewLead() + DELIMITER
-            + true);
-            for (int i = 0; i < crew.getCrewMembers().length-1; i++) {
+                    + crew.getCrewName() + DELIMITER
+                    + crew.getCrewLead() + DELIMITER
+                    + true);
+            for (int i = 0; i < crew.getCrewMembers().length - 1; i++) {
                 out.print(crew.getCrewMembers()[i] + DELIMITER);
             }
-            out.print(crew.getCrewMembers()[crew.getCrewMembers().length-1]);
+            out.print(crew.getCrewMembers()[crew.getCrewMembers().length - 1]);
             out.println();
             out.flush();
         }
         out.close();
-    }    
-    
+    }
+
     //Once db is created, will add to tables, for now stored in hashmap and written to file.
     @Override
     public Crew addCrew(Crew crew) throws Exception {
         loadCrews();
         System.out.println(crews);
-        crews.put(crew.getId(), crew);
+        lastIdNumber += 1;
+        System.out.println(lastIdNumber);
+        crews.put(lastIdNumber, crew);
         writeCrews();
         return crew;
     }
@@ -104,7 +117,7 @@ public class CrewDaoDbImpl implements CrewDao{
     @Override
     public ArrayList<Crew> getAllCrews() throws Exception {
         loadCrews();
-       return new ArrayList<>(crews.values());
+        return new ArrayList<>(crews.values());
     }
 
     //will replace existing  crew info with new
@@ -116,13 +129,13 @@ public class CrewDaoDbImpl implements CrewDao{
     //will remove crew from db
     @Override
     public void deleteCrew(Crew crew) {
-        
+        crews.remove(crew.getId());
     }
 
     //select crew by crew id
     @Override
     public Crew selectCrew(int id) throws Exception {
-        return getAllCrews().get(0);
+        return getAllCrews().get(id);
     }
-    
+
 }

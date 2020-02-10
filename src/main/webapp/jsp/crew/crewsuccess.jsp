@@ -14,6 +14,9 @@
     <body>
         <h1>Crew Added Successfully</h1>
         <h1>${crew.crewName}, ${crew.crewLead}, <c:forEach items="${crew.crewMembers}" var="crewmember">${crewmember}, </c:forEach> </h1>
-        
+        <hr/>
+        <a href="${pageContext.request.contextPath}/crew/displayAllCrews">Display All Crews</a>
+        <br>
+        <a href="${pageContext.request.contextPath}/index.jsp">home</a>
     </body>
 </html>

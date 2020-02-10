@@ -46,4 +46,19 @@ public class CrewController {
         return "crew/crewsuccess";
     }
     
+    @RequestMapping(value="/displayAllCrews", method=RequestMethod.GET)
+    public String displayAllCrews(HttpServletRequest rq, Model model) throws Exception {
+        model.addAttribute("crews", cServ.loadAllCrews());
+        return "crew/allCrews";
+    }
+    
+    @RequestMapping(value="/deleteCrew", method=RequestMethod.GET)
+    public String deleteCrew(HttpServletRequest rq, Model model) throws Exception {
+        int crewId = Integer.parseInt(rq.getParameter("id"));
+        Crew crewToDelete = cServ.selectCrew(crewId);
+        cServ.deleteCrew(crewToDelete);
+        model.addAttribute("crews", cServ.loadAllCrews());
+        return "crew/allCrews";
+    }
+    
 }
