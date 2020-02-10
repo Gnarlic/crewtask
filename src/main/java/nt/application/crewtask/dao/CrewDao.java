@@ -14,7 +14,7 @@ import nt.application.crewtask.model.Crew;
  */
 public interface CrewDao {
     
-    public Crew addCrew(Crew crew);
+    public Crew addCrew(Crew crew) throws Exception;
     
     public Crew editCrew(Crew crew);
     

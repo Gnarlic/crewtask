@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <h1>Crew Added Successfully</h1>
         <h1>${crew.crewName}, ${crew.crewLead}, <c:forEach items="${crew.crewMembers}" var="crewmember">${crewmember}, </c:forEach> </h1>
         
     </body>

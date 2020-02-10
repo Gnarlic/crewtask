@@ -33,7 +33,7 @@ public class CrewController {
     }
     
     @RequestMapping(value="/submitCrew", method=RequestMethod.POST)
-    public String addCrew(HttpServletRequest rq, Model model, Crew crew, BindingResult rs) {
+    public String addCrew(HttpServletRequest rq, Model model, Crew crew, BindingResult rs) throws Exception {
         if (rs.hasErrors()) {
             Crew newCrew = new Crew();
             model.addAttribute("crew", newCrew);

@@ -14,7 +14,7 @@ import nt.application.crewtask.model.Crew;
  */
 public interface CrewService {
     
-    public Crew addCrew(Crew crew);
+    public Crew addCrew(Crew crew) throws Exception;
     
     public void deleteCrew(Crew crew);
     

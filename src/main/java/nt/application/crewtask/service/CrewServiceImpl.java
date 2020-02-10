@@ -6,6 +6,7 @@
 package nt.application.crewtask.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import nt.application.crewtask.dao.CrewDao;
 import nt.application.crewtask.dao.CrewDaoDbImpl;
 import nt.application.crewtask.model.Crew;
@@ -19,16 +20,15 @@ public class CrewServiceImpl implements CrewService{
     private CrewDao cDao = new CrewDaoDbImpl();
     
     @Override
-    public Crew addCrew(Crew crew) {
+    public Crew addCrew(Crew crew) throws Exception{
         String SPLIT = ",";
         String[] crewMembers;
-        String inputString = crew.getCrewMembers()[0];
-        crewMembers = inputString.split(SPLIT);
-        for (int i = 0; i < crewMembers.length; i++) {
-            crewMembers[i] = crewMembers[i] + "y'all";
-            System.out.println(crewMembers);
-        }
+        //System.out.println(Arrays.toString(crew.getCrewMembers()));
+        String inputString = Arrays.toString(crew.getCrewMembers()).replace("[","").replace("]","").trim();
+        crewMembers = inputString.split(",");
+        System.out.println(Arrays.toString(crewMembers));
         crew.setCrewMembers(crewMembers);
+        cDao.addCrew(crew);
         return crew;
     }
 

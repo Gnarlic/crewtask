@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import nt.application.crewtask.model.Crew;
@@ -25,7 +26,7 @@ public class CrewDaoDbImpl implements CrewDao{
 
     private final Map<Integer, Crew> crews = new HashMap<>();
     
-    public static final String CREW_LIST = "crewList.txt";
+    public static final String CREW_LIST = "C:/Repos/CrewTask/crewList.txt";
     public static final String DELIMITER = "::";
     
     
@@ -35,7 +36,7 @@ public class CrewDaoDbImpl implements CrewDao{
         try {
             sc = new Scanner(new BufferedReader(new FileReader(CREW_LIST)));
         } catch (FileNotFoundException e) {
-            throw new Exception("test", e);
+            throw new Exception("file not found", e);
         }
         String currentLine;
         String[] currentTokens;
@@ -72,12 +73,30 @@ public class CrewDaoDbImpl implements CrewDao{
         } catch (IOException e) {
             throw new Exception("test", e);
         }
+        
+        List<Crew> crews = this.getAllCrews();
+        for (Crew crew : crews) {
+            out.println(crew.getId() + DELIMITER
+            + crew.getCrewName() + DELIMITER
+            + crew.getCrewLead() + DELIMITER
+            + true);
+            for (int i = 0; i < crew.getCrewMembers().length-1; i++) {
+                out.print(crew.getCrewMembers()[i] + DELIMITER);
+            }
+            out.print(crew.getCrewMembers()[crew.getCrewMembers().length-1]);
+            out.println();
+            out.flush();
+        }
+        out.close();
     }    
     
     //Once db is created, will add to tables, for now stored in hashmap and written to file.
     @Override
-    public Crew addCrew(Crew crew) {
+    public Crew addCrew(Crew crew) throws Exception {
+        loadCrews();
+        System.out.println(crews);
         crews.put(crew.getId(), crew);
+        writeCrews();
         return crew;
     }
 
@@ -85,17 +104,7 @@ public class CrewDaoDbImpl implements CrewDao{
     @Override
     public ArrayList<Crew> getAllCrews() throws Exception {
         loadCrews();
-       Crew crew = new Crew(1);
-       crew.setCrewName("Test Crew");
-       String[] strArray = new String[2];
-       strArray[1] = "test member 1";
-       strArray[2] = "test member 2";
-       crew.setCrewMembers(strArray);
-       crew.setCrewLead("Will Burr");
-       crew.setIsAvailable(true);
-       ArrayList<Crew> crewList = new ArrayList<>();
-       crewList.add(crew);
-       return crewList;
+       return new ArrayList<>(crews.values());
     }
 
     //will replace existing  crew info with new
@@ -113,7 +122,7 @@ public class CrewDaoDbImpl implements CrewDao{
     //select crew by crew id
     @Override
     public Crew selectCrew(int id) throws Exception {
-        return getAllCrews().get(1);
+        return getAllCrews().get(0);
     }
     
 }
