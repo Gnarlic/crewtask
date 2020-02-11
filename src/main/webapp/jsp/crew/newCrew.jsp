@@ -16,7 +16,6 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        ${crew.crewName}
         <sf:form role="form" modelAttribute="crew" method="POST" action="submitCrew">
             <sf:input type="text" id="crew-name" name="crewName" path="crewName" placeholder="Crew Name" required="required"/>
             <sf:input type="text" id="crew-lead" name="crewLead" path="crewLead" placeholder="Crew Lead" required="required"/>

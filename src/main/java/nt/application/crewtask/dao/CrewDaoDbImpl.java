@@ -123,6 +123,7 @@ public class CrewDaoDbImpl implements CrewDao {
     //will replace existing  crew info with new
     @Override
     public Crew editCrew(Crew crew) {
+        crews.put(crew.getId(), crew);
         return crew;
     }
 

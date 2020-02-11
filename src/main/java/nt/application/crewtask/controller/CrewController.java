@@ -61,4 +61,10 @@ public class CrewController {
         return "crew/allCrews";
     }
     
+    @RequestMapping(value="/editCrew", method=RequestMethod.POST)
+    public String editcrew(HttpServletRequest rq, Model model) throws Exception {
+        cServ.editCrew(null);
+        return "crew/allCrews";
+    }
+    
 }
