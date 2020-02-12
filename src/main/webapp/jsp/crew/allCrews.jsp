@@ -22,7 +22,7 @@
             <br>Crew Lead: ${crew.crewLead}
             <br>Available?: ${crew.isAvailable}
             <br>Crew Members: <c:forEach items="${crew.crewMembers}" var="crewMember">${crewMember}, </c:forEach>
-            <br><a href="${pageContext.request.contextPath}/crew/deleteCrew?id=${crew.id}">delete</a>
+            <br><a href="${pageContext.request.contextPath}/crew/deleteCrew?id=${crew.id}">delete</a> | <a href="${pageContext.request.contextPath}/crew/selectCrewForEdit?id=${crew.id}">Edit</a>
             <hr/>
         </c:forEach>
     </body>

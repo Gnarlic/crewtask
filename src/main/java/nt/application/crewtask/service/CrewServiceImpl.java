@@ -34,11 +34,12 @@ public class CrewServiceImpl implements CrewService{
 
     @Override
     public void deleteCrew(Crew crew) {
-        
+        cDao.deleteCrew(crew);
     }
 
     @Override
     public Crew editCrew(Crew crew) {
+        cDao.editCrew(crew);
         return crew;
     }
 

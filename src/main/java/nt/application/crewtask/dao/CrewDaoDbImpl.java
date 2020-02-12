@@ -130,6 +130,7 @@ public class CrewDaoDbImpl implements CrewDao {
     //will remove crew from db
     @Override
     public void deleteCrew(Crew crew) {
+        System.out.println(crew.getId());
         crews.remove(crew.getId());
     }
 

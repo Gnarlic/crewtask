@@ -12,6 +12,7 @@ import nt.application.crewtask.service.CrewServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -62,9 +63,15 @@ public class CrewController {
     }
     
     @RequestMapping(value="/editCrew", method=RequestMethod.POST)
-    public String editcrew(HttpServletRequest rq, Model model) throws Exception {
-        cServ.editCrew(null);
+    public String editCrew(HttpServletRequest rq, Model model, Crew crew, BindingResult rs) throws Exception {
+        cServ.editCrew(crew);
         return "crew/allCrews";
+    }
+    
+    @RequestMapping(value="/selectCrewForEdit/{id}", method=RequestMethod.GET)
+    public String selectCrewForEdit(@PathVariable("id") String id, Model model) throws Exception {
+        model.addAttribute(cServ.selectCrew(Integer.parseInt(id)));
+        return "crew/editCrew";
     }
     
 }
