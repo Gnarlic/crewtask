@@ -58,8 +58,9 @@ public class CrewDaoDbImpl implements CrewDao {
                     }
                     currentCrew.setCrewMembers(crewMembers);
                 }
-                crews.put(currentCrew.getId(), currentCrew);
                 lastIdNumber = currentCrew.getId();
+                crews.put(currentCrew.getId(), currentCrew);
+                
             } catch (NumberFormatException e) {
                 Crew firstCrew = new Crew(1);
                 firstCrew.setCrewName("First Crew");
@@ -105,9 +106,8 @@ public class CrewDaoDbImpl implements CrewDao {
     @Override
     public Crew addCrew(Crew crew) throws Exception {
         loadCrews();
-        System.out.println(crews);
         lastIdNumber += 1;
-        System.out.println(lastIdNumber);
+        crew.setId(lastIdNumber);
         crews.put(lastIdNumber, crew);
         writeCrews();
         return crew;
@@ -137,7 +137,7 @@ public class CrewDaoDbImpl implements CrewDao {
     //select crew by crew id
     @Override
     public Crew selectCrew(int id) throws Exception {
-        return getAllCrews().get(id);
+        return crews.get(id);
     }
 
 }

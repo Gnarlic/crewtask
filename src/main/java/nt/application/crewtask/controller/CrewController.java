@@ -70,6 +70,7 @@ public class CrewController {
     
     @RequestMapping(value="/selectCrewForEdit/{id}", method=RequestMethod.GET)
     public String selectCrewForEdit(@PathVariable("id") String id, Model model) throws Exception {
+        System.out.println(id);
         model.addAttribute(cServ.selectCrew(Integer.parseInt(id)));
         return "crew/editCrew";
     }
